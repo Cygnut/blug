@@ -23,42 +23,79 @@ class Entry extends CI_Controller {
 	{
 		$entry = $this->entry_model->get($id);
 		
-		if (empty($entry)) show_404();
+		if (empty($entry)) 
+		{
+			show_404();
+			return;
+		}
 		
 		$this->load->view('templates/header');
 		$this->load->view('entry/view', $entry);
 		$this->load->view('templates/footer');
 	}
 	
-	public function create()
+	private function is_post()
+	{
+		return isset($_POST) && !empty($_POST);
+	}
+	
+	public function edit($id = null)
 	{
 		$this->load->helper('form');
 		$this->load->library('form_validation');
 		
-		$data['title'] = 'Create an entry';
-		$data['categories'] = $this->entry_category_model->get();
+		$entry = null;
+		if (isset($id))
+		{
+			$entry = $this->entry_model->get($id);
+			if (empty($entry)) show_404();
+		}
 		
 		$this->form_validation->set_rules('title', 'Title', 'required');
 		$this->form_validation->set_rules('content', 'Content', 'required');
 		$this->form_validation->set_rules('category', 'Category', 'required');
 		
-		if ($this->form_validation->run() === FALSE)
+		// If the user got here by POSTing the form, and form validation was good, update the model.
+		if ($this->is_post() && $this->form_validation->run())
 		{
-			$this->load->view('templates/header');
-			$this->load->view('entry/create', $data);
-			$this->load->view('templates/footer');
-		}
-		else
-		{
-			$id = $this->entry_model->insert([
+			$input = [
 				'title' => $this->input->post('title'),
 				'category_id' => $this->input->post('category'),
 				'content' => $this->input->post('content')
-			]);
+			];
+			
+			if (isset($entry))
+			{
+				// It's an edit.
+				$this->entry_model->update($id, $input);
+			}
+			else
+			{
+				// It's a create.
+				$id = $this->entry_model->insert($input);
+			}
 			redirect('entry/'.$id, 'refresh');
 		}
+		else
+		{
+			// Otherwise - the user has either accessed this endpoint with a GET (wanting
+			// the form to be rendered), or have submitted an invalid form.
+			//   In either case, render the form.
+			
+			$data['categories'] = $this->entry_category_model->get();
+			
+			$data['title']			= isset($entry) ? 'Edit' : 'Create';
+			$data['id']				= isset($entry) ? $entry['id'] : null;
+			$data['entry_title']	= isset($entry) ? $entry['title'] : '';
+			$data['entry_content']	= isset($entry) ? $entry['content'] : '';
+			$data['entry_category']	= isset($entry) ? $entry['category_id'] : '';
+			
+			$this->load->view('templates/header');
+			$this->load->view('entry/edit', $data);
+			$this->load->view('templates/footer');
+		}
 	}
-
+	
 	public function delete($id)
 	{
 		$this->entry_model->delete($id);
