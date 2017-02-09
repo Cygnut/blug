@@ -23,11 +23,7 @@ class Entry extends CI_Controller {
 	{
 		$entry = $this->entry_model->get($id);
 		
-		if (empty($entry)) 
-		{
-			show_404();
-			return;
-		}
+		if (empty($entry)) show_404();
 		
 		$this->load->view('templates/header');
 		$this->load->view('entry/view', $entry);

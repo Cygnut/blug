@@ -22,5 +22,5 @@
 		?>
 	</select>
 	
-	<input type="submit" name="submit" value="Create entry"/>
+	<input type="submit" name="submit" value="OK"/>
 </form>
