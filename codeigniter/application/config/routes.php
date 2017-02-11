@@ -51,14 +51,18 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 */
 $route['default_controller'] = 'entry';
 
-$route['entry/edit/(:any)'] = 'entry/edit/$1';
-$route['entry/edit'] = 'entry/edit';
+$route['entry/update_form/(:any)'] = 'entry/edit_form/$1';
+$route['entry/create_form'] = 'entry/edit_form';
+$route['entry/update/(:any)'] = 'entry/edit/$1';
+$route['entry/create'] = 'entry/edit';
 $route['entry/delete/(:any)'] = 'entry/delete/$1';
 $route['entry/(:any)'] = 'entry/view/$1';
 $route['entry'] = 'entry/index';
 
-$route['category/edit/(:any)'] = 'entry_category/edit/$1';
-$route['category/edit'] = 'entry_category/edit';
+$route['category/update_form/(:any)'] = 'entry_category/edit_form/$1';
+$route['category/create_form'] = 'entry_category/edit_form';
+$route['category/update/(:any)'] = 'entry_category/edit/$1';
+$route['category/create'] = 'entry_category/edit';
 $route['category/delete/(:any)'] = 'entry_category/delete/$1';
 $route['category/(:any)'] = 'entry_category/view/$1';
 $route['category'] = 'entry_category/index';

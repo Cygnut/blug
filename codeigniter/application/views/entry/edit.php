@@ -2,7 +2,7 @@
 
 <?php echo validation_errors(); ?>
 
-<?php echo form_open(isset($id) ? ('entry/edit/'.$id) : 'entry/edit'); ?>
+<?php echo form_open(isset($id) ? ('entry/update/'.$id) : 'entry/create'); ?>
 	<label for="title">Title</label>
 	<input type="input" name="title" value="<?php echo $entry_title; ?>"/><br/>
 	

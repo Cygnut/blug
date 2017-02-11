@@ -2,7 +2,7 @@
 
 <?php echo validation_errors(); ?>
 
-<?php echo form_open(isset($id) ? ('category/edit/'.$id) : 'category/edit'); ?>
+<?php echo form_open(isset($id) ? ('category/update/'.$id) : 'category/create'); ?>
 	<label for="name">Name</label>
 	<input type="input" name="name" value="<?php echo $category_name; ?>"/><br/>
 	
