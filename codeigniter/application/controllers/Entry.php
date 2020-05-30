@@ -10,7 +10,7 @@ class Entry extends CI_Controller {
     }
 
     public function index()
-    {	
+    {    
         $data['title'] = 'Blog Entries';
         $data['entries'] = $this->entry_model->get();
         
@@ -50,11 +50,11 @@ class Entry extends CI_Controller {
         
         // Generate form page, with either empty data in the case of a create, or existing data for an edit.
         $data['categories'] = $this->entry_category_model->get();
-        $data['title']			= isset($entry) ? 'Edit' : 'Create';
-        $data['id']				= isset($entry) ? $entry['id'] : null;
-        $data['entry_title']	= isset($entry) ? $entry['title'] : '';
-        $data['entry_content']	= isset($entry) ? $entry['content'] : '';
-        $data['entry_category']	= isset($entry) ? $entry['category_id'] : '';
+        $data['title']            = isset($entry) ? 'Edit' : 'Create';
+        $data['id']                = isset($entry) ? $entry['id'] : null;
+        $data['entry_title']    = isset($entry) ? $entry['title'] : '';
+        $data['entry_content']    = isset($entry) ? $entry['content'] : '';
+        $data['entry_category']    = isset($entry) ? $entry['category_id'] : '';
         
         $this->load->view('templates/header');
         $this->load->view('entry/edit', $data);

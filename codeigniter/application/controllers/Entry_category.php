@@ -48,10 +48,10 @@ class Entry_category extends CI_Controller {
         $category = $this->get_category_or_404($id);
         
         // Generate form page, with either empty data in the case of a create, or existing data for an edit.
-        $data['title']					= isset($category) ? 'Edit' : 'Create';
-        $data['id']						= isset($category) ? $category['id'] : null;
-        $data['category_name']			= isset($category) ? $category['name'] : '';
-        $data['category_description']	= isset($category) ? $category['description'] : '';
+        $data['title']                    = isset($category) ? 'Edit' : 'Create';
+        $data['id']                        = isset($category) ? $category['id'] : null;
+        $data['category_name']            = isset($category) ? $category['name'] : '';
+        $data['category_description']    = isset($category) ? $category['description'] : '';
         
         $this->load->view('templates/header');
         $this->load->view('category/edit', $data);
@@ -86,7 +86,7 @@ class Entry_category extends CI_Controller {
         }
         else
         {
-            // TODO: Handle error in form validation by re-showing form with existing data by redirecting.			
+            // TODO: Handle error in form validation by re-showing form with existing data by redirecting.            
         }
     }
     
